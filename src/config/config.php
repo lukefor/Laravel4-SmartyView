@@ -7,6 +7,6 @@ return array(
 	'cache_lifetime' => 120,
 	
 	'template_path'  => \App::make('path').'/views',
-	'cache_path'     => \App::make('path').'/views/cache',
-	'compile_path'   => \App::make('path').'/views/compile',
+	'cache_path'     => \App::make('path').'/storage/views/cache',
+	'compile_path'   => \App::make('path').'/storage/views/compile',
 );
