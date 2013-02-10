@@ -31,7 +31,7 @@ class SmartyEngine implements Engines\EngineInterface {
 		$viewPos = strpos($filename, "views" . DS);
 		if($viewPos !== false)
 			$filename = substr($filename, strpos($filename, "views" . DS) + 6);
-		return str_replace(".tpl", "", $filename);
+		return str_replace(DS, ".", str_replace(".tpl", "", $filename));
 	}
 	
 	public static function integrateViewComposers($_template, $forceName = false){
@@ -43,7 +43,7 @@ class SmartyEngine implements Engines\EngineInterface {
 		if($forceName !== false && empty($_template->properties['file_dependency'])){			
             $viewName = self::smartyNameToViewName($forceName);
             $view = new HackView($viewName);            
-            $events->fire('composing: '.$view->getName(), compact('view'));
+            $events->fire('composing: '.$view->getName(), array($view));
             foreach($view->getData() as $key => $value){
                 $_template->tpl_vars[$key] = new \Smarty_Variable($value);
 			}
@@ -54,7 +54,7 @@ class SmartyEngine implements Engines\EngineInterface {
             		$viewName = self::smartyNameToViewName($file[0]);
             		
 					$view = new HackView($viewName);
-					$events->fire('composing: '.$view->getName(), compact('view'));
+					$events->fire('composing: '.$view->getName(), array($view));
 					foreach($view->getData() as $key => $value){
 						$_template->tpl_vars[$key] = new \Smarty_Variable($value);
 					}
