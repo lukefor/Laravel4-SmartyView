@@ -41,18 +41,18 @@ class SmartyEngine implements Engines\EngineInterface {
 		$events = \App::make('events');
 		
 		if($forceName !== false && empty($_template->properties['file_dependency'])){			
-            $viewName = self::smartyNameToViewName($forceName);
-            $view = new HackView($viewName);            
-            $events->fire('composing: '.$view->getName(), array($view));
-            foreach($view->getData() as $key => $value){
-                $_template->tpl_vars[$key] = new \Smarty_Variable($value);
+			$viewName = self::smartyNameToViewName($forceName);
+			$view = new HackView($viewName);
+			$events->fire('composing: '.$view->getName(), array($view));
+			foreach($view->getData() as $key => $value){
+				$_template->tpl_vars[$key] = new \Smarty_Variable($value);
 			}
 			unset($hackView);
 		} else {			
-	        foreach($_template->properties['file_dependency'] as $file){
-	            if($file[2] == 'file'){		
-            		$viewName = self::smartyNameToViewName($file[0]);
-            		
+			foreach($_template->properties['file_dependency'] as $file){
+				if($file[2] == 'file'){					
+					$viewName = self::smartyNameToViewName($file[0]);
+					
 					$view = new HackView($viewName);
 					$events->fire('composing: '.$view->getName(), array($view));
 					foreach($view->getData() as $key => $value){
@@ -60,7 +60,7 @@ class SmartyEngine implements Engines\EngineInterface {
 					}
 					unset($hackView);
 				}
-			}         	
+			} 	
 		}	
 	}	
 
