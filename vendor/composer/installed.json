@@ -6,19 +6,24 @@
         "target-dir": "Illuminate/Support",
         "source": {
             "type": "git",
-            "url": "http://github.com/illuminate/support",
-            "reference": "4888e24fa192b1b481a861f2cee46e8e08fd290e"
+            "url": "https://github.com/illuminate/support.git",
+            "reference": "e09f68ae78aab398fd3c8e8f814df89b03c2a817"
         },
         "dist": {
             "type": "zip",
-            "url": "https://github.com/illuminate/support/archive/4888e24fa192b1b481a861f2cee46e8e08fd290e.zip",
-            "reference": "4888e24fa192b1b481a861f2cee46e8e08fd290e",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/e09f68ae78aab398fd3c8e8f814df89b03c2a817",
+            "reference": "e09f68ae78aab398fd3c8e8f814df89b03c2a817",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2013-01-29 05:19:10",
+        "require-dev": {
+            "mockery/mockery": "0.7.2",
+            "patchwork/utf8": "1.1.*",
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2013-05-19 03:05:01",
         "type": "library",
         "extra": {
             "branch-alias": {
