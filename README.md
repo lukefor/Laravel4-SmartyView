@@ -10,5 +10,7 @@ Undefined variables (and other E_NOTICE errors) are also silently allowed, as a 
 Smarty itself has been included because file edits were required for View Composer support. It should not be upgraded without these being merged, unless you don't care about View Composers.
 
 You can install this through composer with:
+
 	"dark/smarty-view": "dev-master"
+	
 in composer.json>"require"
