@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Dark\SmartyView;
 
 use Illuminate\View;
@@ -8,7 +8,7 @@ use Illuminate\View\Compilers\CompilerInterface;
 class SmartyEngine implements Engines\EngineInterface {
 
 	protected $config;
-	
+
 	public function __construct($config)
 	{
 		$this->config = $config;
@@ -25,22 +25,22 @@ class SmartyEngine implements Engines\EngineInterface {
 	{
 		return $this->evaluatePath($path, $data);
 	}
-	
-	
+
+
 	private static function smartyNameToViewName($filename){
 		$viewPos = strpos($filename, "views" . DS);
 		if($viewPos !== false)
 			$filename = substr($filename, strpos($filename, "views" . DS) + 6);
 		return str_replace(DS, ".", str_replace(".tpl", "", $filename));
 	}
-	
+
 	public static function integrateViewComposers($_template, $forceName = false){
 		if(!is_a($_template, 'Smarty_Internal_Template'))
 			return;
-		
+
 		$events = \App::make('events');
-		
-		if($forceName !== false && empty($_template->properties['file_dependency'])){			
+
+		if($forceName !== false && empty($_template->properties['file_dependency'])){
 			$viewName = self::smartyNameToViewName($forceName);
 			$view = new HackView($viewName);
 			$events->fire('composing: '.$view->getName(), array($view));
@@ -48,11 +48,11 @@ class SmartyEngine implements Engines\EngineInterface {
 				$_template->tpl_vars[$key] = new \Smarty_Variable($value);
 			}
 			unset($hackView);
-		} else {			
+		} else {
 			foreach($_template->properties['file_dependency'] as $file){
-				if($file[2] == 'file'){					
+				if($file[2] == 'file'){
 					$viewName = self::smartyNameToViewName($file[0]);
-					
+
 					$view = new HackView($viewName);
 					$events->fire('composing: '.$view->getName(), array($view));
 					foreach($view->getData() as $key => $value){
@@ -60,9 +60,9 @@ class SmartyEngine implements Engines\EngineInterface {
 					}
 					unset($hackView);
 				}
-			} 	
-		}	
-	}	
+			}
+		}
+	}
 
 	/**
 	 * Get the evaluated contents of the view at the given path.
@@ -74,12 +74,12 @@ class SmartyEngine implements Engines\EngineInterface {
 	protected function evaluatePath($__path, $__data)
 	{
 		ob_start();
-		
-		try {			
+
+		try {
 			require_once dirname(__FILE__) . '/Smarty/libs/Smarty.class.php';
-			
+
 			$configKey = 'smartyView::';
-		
+
 			$caching = $this->config[$configKey . 'caching'];
 			$cache_lifetime = $this->config[$configKey . 'cache_lifetime'];
 			$debugging = $this->config[$configKey . 'debugging'];
@@ -88,31 +88,32 @@ class SmartyEngine implements Engines\EngineInterface {
 			$compile_path  = $this->config[$configKey . 'compile_path'];
 			$cache_path    = $this->config[$configKey . 'cache_path'];
 
+
 			$Smarty = new \Smarty();
 
 			$Smarty->setTemplateDir($template_path);
 			$Smarty->setCompileDir($compile_path);
 			$Smarty->setCacheDir($cache_path);
-			
+
 
 			$Smarty->debugging = $debugging;
 			$Smarty->caching = $caching;
 			$Smarty->cache_lifetime = $cache_lifetime;
 			$Smarty->compile_check = true;
-			
+
 			//$Smarty->escape_html = true;
 			$Smarty->error_reporting = E_ALL &~ E_NOTICE;
-						
+
 			foreach ($__data as $var => $val) {
 				$Smarty->assign($var, $val);
-			}			
-			
+			}
+
 			print $Smarty->display($__path);
-						
+
 		} catch (\Exception $e) {
 			$this->handleViewException($e);
 		}
-				
+
 		return ob_get_clean();
 	}
 
