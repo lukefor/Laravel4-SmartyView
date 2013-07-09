@@ -88,6 +88,8 @@ class SmartyEngine implements Engines\EngineInterface {
 			$compile_path  = $this->config[$configKey . 'compile_path'];
 			$cache_path    = $this->config[$configKey . 'cache_path'];
 
+			// Get the plugins path from the configuration
+			$plugins_paths = $this->config[$configKey . 'plugins_paths'];
 
 			$Smarty = new \Smarty();
 
@@ -95,6 +97,12 @@ class SmartyEngine implements Engines\EngineInterface {
 			$Smarty->setCompileDir($compile_path);
 			$Smarty->setCacheDir($cache_path);
 
+			// Add the plugin folder from the config to the Smarty object.
+			// Note that I am using addPluginsDir here rather than setPluginsDir
+			// because I want to add a secondary folder, not replace the
+			// existing folder.
+			foreach($plugins_paths as $path)
+				$Smarty->addPluginsDir($path);
 
 			$Smarty->debugging = $debugging;
 			$Smarty->caching = $caching;
