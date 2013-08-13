@@ -159,16 +159,18 @@ abstract class Smarty_Resource {
             $_path = str_replace('\\', '/', $_path);
         }
         
+        $offset = 0;
+        
         // resolve simples
         $_path = preg_replace('#(/\./(\./)*)|/{2,}#', '/', $_path);
         // resolve parents
         while (true) {
-            $_parent = strpos($_path, '/../');
-            if ($_parent === false) {
+            $_parent = strpos($_path, '/../', $offset);
+            if (!$_parent) {
                 break;
-            } else if ($_parent === 0) {
-                $_path = substr($_path, 3);
-                break;
+            } else if ($_path[$_parent - 1] === '.') {
+                $offset = $_parent + 3;
+                continue;
             }
             
             $_pos = strrpos($_path, '/', $_parent - strlen($_path) - 1);
@@ -226,7 +228,6 @@ abstract class Smarty_Resource {
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
             // don't we all just love windows?
             $_path = str_replace('\\', '/', $file);
-            $_was_relative_prefix = $file[0] == '.' ? substr($file, 0, strpos($_path, '/')) : null;
             $_path = DS . trim($file, '/');
             $_was_relative = true;
         } else {
@@ -240,11 +241,7 @@ abstract class Smarty_Resource {
         }
         // revert to relative
         if (isset($_was_relative)) {
-            if (isset($_was_relative_prefix)){
-                $_path = $_was_relative_prefix . $_path;
-            } else {
-                $_path = substr($_path, 1);
-            }
+            $_path = substr($_path, 1);
         }
 
         // this is only required for directories
@@ -587,7 +584,7 @@ abstract class Smarty_Resource {
  * @author Rodney Rehm
  *
  * @property integer $timestamp Source Timestamp
- * @property boolean $exists    Source Existance
+ * @property boolean $exists    Source Existence
  * @property boolean $template  Extended Template reference
  * @property string  $content   Source Content
  */
@@ -814,7 +811,7 @@ class Smarty_Template_Compiled {
     public $timestamp = null;
 
     /**
-     * Compiled Existance
+     * Compiled Existence
      * @var boolean
      */
     public $exists = false;

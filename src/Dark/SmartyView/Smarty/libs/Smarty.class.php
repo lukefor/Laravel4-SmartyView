@@ -2,7 +2,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 4614 2012-05-24 15:13:19Z rodneyrehm $
+ * SVN:         $Id: Smarty.class.php 4742 2013-06-17 13:30:49Z Uwe.Tews@googlemail.com $
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ if (!defined('SMARTY_PLUGINS_DIR')) {
     define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DS);
 }
 if (!defined('SMARTY_MBSTRING')) {
-    define('SMARTY_MBSTRING', function_exists('mb_strlen'));
+    define('SMARTY_MBSTRING', function_exists('mb_split'));
 }
 if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
     // UTF-8 can only be done properly when mbstring is available!
@@ -113,7 +113,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.11';
+    const SMARTY_VERSION = 'Smarty-3.1.14';
 
     /**
      * define variable scopes
@@ -128,6 +128,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     const CACHING_OFF = 0;
     const CACHING_LIFETIME_CURRENT = 1;
     const CACHING_LIFETIME_SAVED = 2;
+    /**
+     * define constant for clearing cache files be saved expiration datees
+     */
+    const CLEAR_EXPIRED = -1; 
+
     /**
      * define compile check modes
      */
@@ -189,12 +194,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * Flag denoting if PCRE should run in UTF-8 mode
      */
     public static $_UTF8_MODIFIER = 'u';
-    
+
     /**
      * Flag denoting if operating system is windows
      */
     public static $_IS_WINDOWS = false;
-    
+
     /**#@+
      * variables
      */
@@ -1281,7 +1286,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         }
         // plugin filename is expected to be: [type].[name].php
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
-        
+
         $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
 
         // loop through plugin dirs and find the plugin
@@ -1302,7 +1307,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
                     } else {
                         $file = Smarty_Internal_Get_Include_Path::getIncludePath($file);
                     }
-                    
+
                     if ($file !== false) {
                         require_once($file);
                         return $file;
@@ -1323,9 +1328,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * @param int $max_errors
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+    public function compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
-        return Smarty_Internal_Utility::compileAllTemplates($extention, $force_compile, $time_limit, $max_errors, $this);
+        return Smarty_Internal_Utility::compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, $this);
     }
 
     /**
@@ -1337,9 +1342,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * @param int $max_errors
      * @return integer number of template files recompiled
      */
-    public function compileAllConfig($extention = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
+    public function compileAllConfig($extension = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
-        return Smarty_Internal_Utility::compileAllConfig($extention, $force_compile, $time_limit, $max_errors, $this);
+        return Smarty_Internal_Utility::compileAllConfig($extension, $force_compile, $time_limit, $max_errors, $this);
     }
 
     /**
@@ -1392,10 +1397,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // add the SMARTY_DIR to the list of muted directories
         if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
             $smarty_dir = realpath(SMARTY_DIR);
-            Smarty::$_muted_directories[SMARTY_DIR] = array(
-                'file' => $smarty_dir,
-                'length' => strlen($smarty_dir),
-            );
+            if ($smarty_dir !== false) {
+                Smarty::$_muted_directories[SMARTY_DIR] = array(
+                    'file' => $smarty_dir,
+                    'length' => strlen($smarty_dir),
+                );
+            }
         }
 
         // walk the muted directories and test against $errfile
@@ -1403,6 +1410,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
             if (!$dir) {
                 // resolve directory and length for speedy comparisons
                 $file = realpath($key);
+                if ($file === false) {
+                    // this directory does not exist, remove and skip it
+                    unset(Smarty::$_muted_directories[$key]);
+                    continue;
+                }
                 $dir = array(
                     'file' => $file,
                     'length' => strlen($file),
@@ -1481,6 +1493,10 @@ if (Smarty::$_CHARSET !== 'UTF-8') {
  * @package Smarty
  */
 class SmartyException extends Exception {
+    public static $escape = true;
+    public function __construct($message) {
+        $this->message = self::$escape ? htmlentities($message) : $message;
+    }
 }
 
 /**

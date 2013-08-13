@@ -130,7 +130,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         if ($this->parent instanceof Smarty_Internal_Template) {
             $this->block_data = $this->parent->block_data;
         }
-        
     }
 
     /**
@@ -245,7 +244,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
      */
     public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope)
     {
-    	
         // already in template cache?
         if ($this->smarty->allow_ambiguous_resources) {
             $_templateId = Smarty_Resource::getUniqueTemplateName($this->smarty, $template) . $cache_id . $compile_id;
@@ -285,9 +283,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
             }
         }
-        
-        \Dark\SmartyView\SmartyEngine::integrateViewComposers($tpl, $template);  
-                        
         return $tpl->fetch(null, null, null, null, false, false, true);
     }
 
@@ -349,7 +344,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 foreach ($this->required_plugins['compiled'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
-                        $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$file}';\n";
+                        if (is_Array($data['function'])){
+                            $plugins_string .= "if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) include '{$file}';\n";
+                        } else {
+                            $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$file}';\n";
+                        }
                     }
                 }
                 $plugins_string .= '?>';
@@ -360,7 +359,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 foreach ($this->required_plugins['nocache'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
-                        $plugins_string .= addslashes("if (!is_callable('{$data['function']}')) include '{$file}';\n");
+                        if (is_Array($data['function'])){
+                            $plugins_string .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) include '{$file}';\n");
+                        } else {
+                            $plugins_string .= addslashes("if (!is_callable('{$data['function']}')) include '{$file}';\n");
+                        }
                     }
                 }
                 $plugins_string .= "?>/*/%%SmartyNocache:{$this->properties['nocache_hash']}%%*/';?>\n";
@@ -464,10 +467,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
             }
         }
         if ($cache) {
+            // CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
+            if ($this->caching === Smarty::CACHING_LIFETIME_SAVED &&
+                $this->properties['cache_lifetime'] >= 0 &&
+                (time() > ($this->cached->timestamp + $this->properties['cache_lifetime']))) {
+                $is_valid = false;
+            }
             $this->cached->valid = $is_valid;
         } else {
-            $this->mustCompile = !$is_valid;
-        }
+            $this->mustCompile = !$is_valid;        }
         // store data in reusable Smarty_Template_Compiled
         if (!$cache) {
             $this->compiled->_properties = $properties;
