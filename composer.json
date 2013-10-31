@@ -1,10 +1,14 @@
 {
-    "name": "dark/smarty-view",
-    "description": "Smarty view engine incl. View Composer support for Laravel 4",
+    "name": "monstergfx/smarty-view",
+    "description": "Smarty view engine incl. View Composer support for Laravel 4. A fork of Dark/SmartyView",
     "authors": [
         {
             "name": "Luke Foreman",
             "email": "luke@weeaboo.com"
+        },
+        {
+            "name": "Dave Thomas",
+            "email": "dave@monstergfx.com"
         }
     ],
     "require": {
