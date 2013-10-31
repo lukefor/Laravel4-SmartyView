@@ -9,9 +9,7 @@ Undefined variables (and other E_NOTICE errors) are also silently allowed, as a 
 
 Smarty itself has been included because file edits were required for View Composer support. It should not be upgraded without these being merged, unless you don't care about View Composers.
 
-Please note that this is a fork of the Dark\SmartyView package. The only change
-(as of Oct 30, 2013) is the inclusion of the most recent version of Smarty
-(3.1.14).
+Please note that this is a fork of the [Dark\SmartyView package](https://github.com/darkimmortal/Laravel4-SmartyView). The only change (as of Oct 30, 2013) is the inclusion of the most recent version of Smarty (3.1.14).
 
 Installation
 ----------------
