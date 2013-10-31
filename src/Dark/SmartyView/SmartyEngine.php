@@ -1,5 +1,5 @@
 <?php
-namespace Dark\SmartyView;
+namespace MonsterGfx\SmartyView;
 
 use Illuminate\View;
 use Illuminate\View\Engines;

@@ -1,4 +1,4 @@
-<?php namespace Dark\SmartyView;
+<?php namespace MonsterGfx\SmartyView;
 
 use Illuminate\Support\ServiceProvider;
 

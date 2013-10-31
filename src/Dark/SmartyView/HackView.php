@@ -1,6 +1,6 @@
 <?php
-  
-namespace Dark\SmartyView;
+
+namespace MonsterGfx\SmartyView;
 
 use \Illuminate\View;
 
