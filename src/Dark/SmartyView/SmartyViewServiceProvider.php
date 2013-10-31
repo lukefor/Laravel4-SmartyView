@@ -27,9 +27,9 @@ class SmartyViewServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register()
-	{				
+	{
 		$app = $this->app;
-		
+
 		$this->app['view']->addExtension('tpl', 'smarty', function() use ($app){
 			return new SmartyEngine($app['config']);
 		});
