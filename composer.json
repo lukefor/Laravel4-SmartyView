@@ -20,7 +20,7 @@
             "src/migrations"
         ],
         "psr-0": {
-            "Dark\\SmartyView": "src/"
+            "MonsterGfx\\SmartyView": "src/"
         }
     },
     "minimum-stability": "dev"
