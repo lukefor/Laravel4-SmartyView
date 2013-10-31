@@ -18,7 +18,7 @@ class SmartyViewServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('dark/smartyView');
+		$this->package('monstergfx/smartyView');
 	}
 
 	/**
