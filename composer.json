@@ -1,23 +1,23 @@
 {
-    "name": "dark/smarty-view",
-    "description": "Smarty view engine incl. View Composer support for Laravel 4",
-    "authors": [
-        {
-            "name": "Luke Foreman",
-            "email": "luke@weeaboo.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
-    },
-    "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
-        "psr-0": {
-            "Dark\\SmartyView": "src/"
-        }
-    },
-    "minimum-stability": "dev"
+	"name": "dark/smarty-view",
+	"description": "Smarty view engine incl. View Composer support for Laravel 4",
+	"authors": [
+		{
+			"name": "Luke Foreman",
+			"email": "luke@weeaboo.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"illuminate/support": "4.1.x"
+	},
+	"autoload": {
+		"classmap": [
+			"src/migrations"
+		],
+		"psr-0": {
+			"Dark\\SmartyView": "src/"
+		}
+	},
+	"minimum-stability": "dev"
 }

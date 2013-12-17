@@ -7,12 +7,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "e09f68ae78aab398fd3c8e8f814df89b03c2a817"
+            "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/e09f68ae78aab398fd3c8e8f814df89b03c2a817",
-            "reference": "e09f68ae78aab398fd3c8e8f814df89b03c2a817",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/5625c8d61171f57da3495d2163370b03c0cfa94a",
+            "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a",
             "shasum": ""
         },
         "require": {
@@ -23,11 +23,11 @@
             "patchwork/utf8": "1.1.*",
             "phpunit/phpunit": "3.7.*"
         },
-        "time": "2013-05-19 03:05:01",
+        "time": "2013-12-12 13:21:25",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.0-dev"
+                "dev-master": "4.1-dev"
             }
         },
         "installation-source": "source",
@@ -40,12 +40,16 @@
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
         "authors": [
             {
                 "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
+                "email": "taylorotwell@gmail.com",
+                "homepage": "https://github.com/taylorotwell",
+                "role": "Developer"
             }
-        ],
-        "description": "Various utilities and support functions."
+        ]
     }
 ]
