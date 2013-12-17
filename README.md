@@ -18,6 +18,8 @@ You can install this through composer with:
 	
 in composer.json -> "require".
 
+If you're using Laravel 4.0 still, swap "dev-master" for "laravel-4.0"
+
 Usage
 ----------
 
