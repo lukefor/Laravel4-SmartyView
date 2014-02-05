@@ -10,6 +10,10 @@ return array(
 	'cache_path'     => \App::make('path').'/storage/views/cache',
 	'compile_path'   => \App::make('path').'/storage/views/compile',
 
+    'left_delimiter' => '{',
+    'right_delimiter' => '}',
+    'auto_literal' => false,
+
 	/*
 	|--------------------------------------------------------------------------
 	| The path to additional Smarty plugins
