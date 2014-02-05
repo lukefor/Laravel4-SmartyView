@@ -76,26 +76,34 @@ class SmartyEngine implements Engines\EngineInterface {
 		ob_start();
 
 		try {
-			require_once dirname(__FILE__) . '/Smarty/libs/Smarty.class.php';
+            require_once dirname(__FILE__) . '/Smarty/libs/Smarty.class.php';
 
-			$configKey = 'smartyView::';
+            $configKey = 'smartyView::';
 
-			$caching = $this->config[$configKey . 'caching'];
-			$cache_lifetime = $this->config[$configKey . 'cache_lifetime'];
-			$debugging = $this->config[$configKey . 'debugging'];
+            $caching = $this->config[$configKey . 'caching'];
+            $cache_lifetime = $this->config[$configKey . 'cache_lifetime'];
+            $debugging = $this->config[$configKey . 'debugging'];
 
-			$template_path = $this->config[$configKey . 'template_path'];
-			$compile_path  = $this->config[$configKey . 'compile_path'];
-			$cache_path    = $this->config[$configKey . 'cache_path'];
+            $template_path = $this->config[$configKey . 'template_path'];
+            $compile_path  = $this->config[$configKey . 'compile_path'];
+            $cache_path    = $this->config[$configKey . 'cache_path'];
 
-			// Get the plugins path from the configuration
-			$plugins_paths = $this->config[$configKey . 'plugins_paths'];
+            $auto_literal = $this->config[$configKey . 'auto_literal'];
+            $left_delimiter = $this->config[$configKey . 'left_delimiter'];
+            $right_delimiter = $this->config[$configKey . 'right_delimiter'];
 
-			$Smarty = new \Smarty();
+            // Get the plugins path from the configuration
+            $plugins_paths = $this->config[$configKey . 'plugins_paths'];
 
-			$Smarty->setTemplateDir($template_path);
-			$Smarty->setCompileDir($compile_path);
-			$Smarty->setCacheDir($cache_path);
+            $Smarty = new \Smarty();
+
+            $Smarty->setTemplateDir($template_path);
+            $Smarty->setCompileDir($compile_path);
+            $Smarty->setCacheDir($cache_path);
+
+            $Smarty->auto_literal = $auto_literal;
+            $Smarty->left_delimiter = $left_delimiter;
+            $Smarty->right_delimiter = $right_delimiter;
 
 			// Add the plugin folder from the config to the Smarty object.
 			// Note that I am using addPluginsDir here rather than setPluginsDir
