@@ -138,11 +138,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     }
                     try {
                         ob_start();
-						
-                        /// dark mad edit
-                        \Dark\SmartyView\SmartyEngine::integrateViewComposers($_template);               
-                        /// end mad edit           
-						 
                         eval("?>" . $code);
                         unset($code);
                     } catch (Exception $e) {
@@ -181,11 +176,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                             throw new SmartyException("Invalid compiled template for '{$_template->template_resource}'");
                         }
                         array_unshift($_template->_capture_stack,array());
-						
-                        /// dark mad edit
-                        \Dark\SmartyView\SmartyEngine::integrateViewComposers($_template);               
-                        /// end mad edit           
-						 
                         //
                         // render compiled template
                         //
@@ -207,11 +197,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     }
                     try {
                         ob_start();
-						
-                        /// dark mad edit
-                        \Dark\SmartyView\SmartyEngine::integrateViewComposers($_template);               
-                        /// end mad edit           
-						 
                         $_template->source->renderUncompiled($_template);
                     } catch (Exception $e) {
                         ob_get_clean();
@@ -266,11 +251,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 $_smarty_tpl = $_template;
                 try {
                     ob_start();
-					
-					/// dark mad edit
-					\Dark\SmartyView\SmartyEngine::integrateViewComposers($_template);               
-					/// end mad edit           
-						 
                     eval("?>" . $output);
                     $_output = ob_get_clean();
                 } catch (Exception $e) {
@@ -296,11 +276,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
             try {
                 ob_start();
-				
-				/// dark mad edit
-				\Dark\SmartyView\SmartyEngine::integrateViewComposers($_template);               
-				/// end mad edit           
-						 
                 array_unshift($_template->_capture_stack,array());
                 //
                 // render cached template
@@ -368,7 +343,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
             // debug output
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::display_debug($this);
+                Smarty_Internal_Debug::display_debug($_template);
             }
             if ($merge_tpl_vars) {
                 // restore local variables
