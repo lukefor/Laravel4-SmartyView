@@ -1,36 +1,35 @@
 [
     {
         "name": "illuminate/support",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v4.2.6",
+        "version_normalized": "4.2.6.0",
         "target-dir": "Illuminate/Support",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a"
+            "reference": "d59811c8d3e0b7c2b9ffd2c480e698b3352472d0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/5625c8d61171f57da3495d2163370b03c0cfa94a",
-            "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/d59811c8d3e0b7c2b9ffd2c480e698b3352472d0",
+            "reference": "d59811c8d3e0b7c2b9ffd2c480e698b3352472d0",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.0"
+            "php": ">=5.4.0"
         },
         "require-dev": {
-            "mockery/mockery": "0.7.2",
-            "patchwork/utf8": "1.1.*",
-            "phpunit/phpunit": "3.7.*"
+            "jeremeamia/superclosure": "~1.0",
+            "patchwork/utf8": "1.1.*"
         },
-        "time": "2013-12-12 13:21:25",
+        "time": "2014-06-29 00:06:59",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.1-dev"
+                "dev-master": "4.2-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Illuminate\\Support": ""
@@ -48,7 +47,7 @@
                 "name": "Taylor Otwell",
                 "email": "taylorotwell@gmail.com",
                 "homepage": "https://github.com/taylorotwell",
-                "role": "Developer"
+                "role": "Creator of Laravel"
             }
         ]
     }
