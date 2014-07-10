@@ -90,7 +90,6 @@ class SmartyEngine implements Engines\EngineInterface {
 
 			// Get the plugins path from the configuration
 			$plugins_paths = $this->config[$configKey . 'plugins_paths'];
-
 			$Smarty = new \Smarty();
 
 			$Smarty->setTemplateDir($template_path);

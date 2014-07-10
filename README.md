@@ -1,7 +1,7 @@
-Smarty for Laravel 4.1
-======================
+Smarty for Laravel 4
+====================
 
-Somewhat hacky implementation of Smarty for Laravel 4.1.
+Implementation of Smarty for Laravel 4.x.
 
 Unlike Twig and other template engines for Laravel (other than raw PHP and Blade), this supports [View Composers](http://laravel.com/docs/responses#view-composers).
 
@@ -18,7 +18,8 @@ You can install this through composer with:
 	
 in composer.json -> "require".
 
-If you're using Laravel 4.0 still, swap "dev-master" for "dev-laravel-4.0"
+If you're using Laravel 4.0, swap "dev-master" for "dev-laravel-4.0"
+If you're using Laravel 4.1, swap "dev-master" for "dev-laravel-4.1"
 
 Usage
 ----------
