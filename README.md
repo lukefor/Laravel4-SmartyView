@@ -19,7 +19,9 @@ You can install this through composer with:
 in composer.json -> "require".
 
 If you're using Laravel 4.0, swap "dev-master" for "dev-laravel-4.0"
+
 If you're using Laravel 4.1, swap "dev-master" for "dev-laravel-4.1"
+
 If you're sticking with Laravel 4.2, swap "dev-master" for "dev-laravel-4.2"
 
 Usage
