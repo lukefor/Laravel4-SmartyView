@@ -1,6 +1,7 @@
 {
     "name": "dark/smarty-view",
     "description": "Smarty view engine incl. View Composer support for Laravel 4",
+    "license": "MIT",
     "authors": [
         {
             "name": "Luke Foreman",
