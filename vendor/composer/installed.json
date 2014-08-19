@@ -1,18 +1,18 @@
 [
     {
         "name": "illuminate/support",
-        "version": "v4.2.6",
-        "version_normalized": "4.2.6.0",
+        "version": "v4.2.8",
+        "version_normalized": "4.2.8.0",
         "target-dir": "Illuminate/Support",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "d59811c8d3e0b7c2b9ffd2c480e698b3352472d0"
+            "reference": "8702d655da1f7502037a2206df38399656ff35ae"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/d59811c8d3e0b7c2b9ffd2c480e698b3352472d0",
-            "reference": "d59811c8d3e0b7c2b9ffd2c480e698b3352472d0",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/8702d655da1f7502037a2206df38399656ff35ae",
+            "reference": "8702d655da1f7502037a2206df38399656ff35ae",
             "shasum": ""
         },
         "require": {
@@ -22,7 +22,7 @@
             "jeremeamia/superclosure": "~1.0",
             "patchwork/utf8": "1.1.*"
         },
-        "time": "2014-06-29 00:06:59",
+        "time": "2014-08-05 12:08:34",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -45,9 +45,7 @@
         "authors": [
             {
                 "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com",
-                "homepage": "https://github.com/taylorotwell",
-                "role": "Creator of Laravel"
+                "email": "taylorotwell@gmail.com"
             }
         ]
     }
