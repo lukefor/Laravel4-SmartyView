@@ -80,13 +80,10 @@ class SmartyEngine implements Engines\EngineInterface {
 
 			$configKey = 'smartyView::';
 
-			$caching = $this->config[$configKey . 'caching'];
-			$cache_lifetime = $this->config[$configKey . 'cache_lifetime'];
-			$debugging = $this->config[$configKey . 'debugging'];
-
 			$template_path = $this->config[$configKey . 'template_path'];
 			$compile_path  = $this->config[$configKey . 'compile_path'];
 			$cache_path    = $this->config[$configKey . 'cache_path'];
+			$smarty_prop   = $this->config[$configKey . 'smarty_property'];
 
 			// Get the plugins path from the configuration
 			$plugins_paths = $this->config[$configKey . 'plugins_paths'];
@@ -101,12 +98,13 @@ class SmartyEngine implements Engines\EngineInterface {
 			// because I want to add a secondary folder, not replace the
 			// existing folder.
 			foreach($plugins_paths as $path)
-				$Smarty->addPluginsDir($path);
+				$Smarty->addPluginsDir($path);			
 
-			$Smarty->debugging = $debugging;
-			$Smarty->caching = $caching;
-			$Smarty->cache_lifetime = $cache_lifetime;
-			$Smarty->compile_check = true;
+			//set smarty global property dynamically
+			//by RANK LIU
+			foreach ($smarty_prop as $key => $value) {
+				$Smarty->$key = $smarty_prop[$key];
+			}
 
 			//$Smarty->escape_html = true;
 			$Smarty->error_reporting = E_ALL &~ E_NOTICE;
